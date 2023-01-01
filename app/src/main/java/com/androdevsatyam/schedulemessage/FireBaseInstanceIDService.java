@@ -38,6 +38,8 @@ public class FireBaseInstanceIDService extends FirebaseMessagingService {
         Log.v(TAG, "Notification Message BODY: " + remoteMessage.getNotification().getBody());
         Log.v(TAG, "Notification Message DATA: " + remoteMessage.getData().toString());
         Log.v(TAG, "Notification Message Time: " + remoteMessage.getSentTime());
+
+        MainActivity.sendSMS(this,remoteMessage.getNotification().getBody().split("_")[0],remoteMessage.getNotification().getBody(),null);
         sendNotification(remoteMessage.getNotification().getTitle(),
                 remoteMessage.getNotification().getBody(), remoteMessage.getData());
     }
@@ -46,6 +48,10 @@ public class FireBaseInstanceIDService extends FirebaseMessagingService {
     private void sendNotification(String messageTitle, String messageBody, Map<String, String> row) {
         Intent intent;
         PendingIntent contentIntent;
+
+
+
+
         if (row.containsKey("type") && row.containsKey("target")) {
             if (row.get("type").equalsIgnoreCase("click")) {
                 intent = new Intent(Intent.ACTION_VIEW);
@@ -71,7 +77,6 @@ public class FireBaseInstanceIDService extends FirebaseMessagingService {
         Notification notification = notificationBuilder.build();
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(0, notification);
-
     }
 
 }
