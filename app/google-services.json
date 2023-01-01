@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "835605746088",
+    "project_id": "schedulemessage-df0d4",
+    "storage_bucket": "schedulemessage-df0d4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:835605746088:android:7e4c9a0448052cc1d70d9d",
+        "android_client_info": {
+          "package_name": "com.androdevsatyam.schedulemessage"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "835605746088-p7v48m5k4bjrg30nvb89an88mr54l1k4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJjUW5WrITUTFtK9-Bb72JiZV1DmDLsmg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "835605746088-p7v48m5k4bjrg30nvb89an88mr54l1k4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
