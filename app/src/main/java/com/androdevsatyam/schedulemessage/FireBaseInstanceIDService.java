@@ -39,18 +39,16 @@ public class FireBaseInstanceIDService extends FirebaseMessagingService {
         Log.v(TAG, "Notification Message DATA: " + remoteMessage.getData().toString());
         Log.v(TAG, "Notification Message Time: " + remoteMessage.getSentTime());
 
-        MainActivity.sendSMS(this,remoteMessage.getNotification().getBody().split("_")[0],remoteMessage.getNotification().getBody(),null);
-        sendNotification(remoteMessage.getNotification().getTitle(),
-                remoteMessage.getNotification().getBody(), remoteMessage.getData());
+        DataModel model=new  DataModel(this);
+        model.setData(remoteMessage.getNotification().getBody().split("_")[0],remoteMessage.getNotification().getBody().split("_")[1]);
+
+        sendNotification(remoteMessage.getNotification().getTitle(), remoteMessage.getNotification().getBody(), remoteMessage.getData());
     }
 
     //This method is only generating push notificationGetting data and create notification for app
     private void sendNotification(String messageTitle, String messageBody, Map<String, String> row) {
         Intent intent;
         PendingIntent contentIntent;
-
-
-
 
         if (row.containsKey("type") && row.containsKey("target")) {
             if (row.get("type").equalsIgnoreCase("click")) {
@@ -77,6 +75,7 @@ public class FireBaseInstanceIDService extends FirebaseMessagingService {
         Notification notification = notificationBuilder.build();
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(0, notification);
+
     }
 
 }

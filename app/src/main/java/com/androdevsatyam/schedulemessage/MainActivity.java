@@ -18,15 +18,38 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+    DataModel model;
+    String msg;
+    String[] numbers;
+    int i = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        model = new DataModel(this);
+        numbers = model.getData("num").split(",");
+        msg = model.getData("msg");
+        if (numbers.length > 1)
+            startSending(numbers[i]);
+
         if (checkpermissions()) {
-            Toast.makeText(this,"Good to Go",Toast.LENGTH_SHORT).show();
-        }else
-            Toast.makeText(this,"Persmission is Neccassary to send sms",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Good to Go", Toast.LENGTH_SHORT).show();
+        } else
+            Toast.makeText(this, "Persmission is Neccassary to send sms", Toast.LENGTH_SHORT).show();
+    }
+
+    private void startSending(String number) {
+        sendSmsByManager(this, number, msg);
+        try {
+            Thread.sleep(800);
+            i++;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        if (i < numbers.length)
+            startSending(numbers[i]);
     }
 
     protected boolean checkpermissions() {
@@ -44,12 +67,10 @@ public class MainActivity extends AppCompatActivity {
         return result;
     }
 
-
-
     public static void sendSMS(Context context, String phoneNumber, String message, SubscriptionInfo simInfo) {
         String SENT = "SMS_SENT";
         String DELIVERED = "SMS_DELIVERED";
-        sendSmsByManager(context,phoneNumber, message);
+        sendSmsByManager(context, phoneNumber, message);
 
 //        PendingIntent sentPI = PendingIntent.getBroadcast(context, 0, new Intent(SENT), 0);
 //
@@ -98,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
 //        }
     }
 
-    public static void sendSmsByManager(Context mcontext,String phoneNumber, String message) {
+    public static void sendSmsByManager(Context mcontext, String phoneNumber, String message) {
         try {
             SmsManager smsManager = SmsManager.getDefault();
             //smsManager.sendTextMessage(phoneNumber,null,message,null,null);
